@@ -1,0 +1,124 @@
+{
+    "name": "S2_freq10_lp5_gan0.5_lr5e-5_test",
+    "phase": "val", // train or val
+    "gpu_ids": [
+        1
+    ],
+    "stage": 2,   // 1 for modality transform   2 for local refinement
+    "ddim_steps": 1,
+    "loss_w":
+        {
+            "fft_w": 10,
+            "lpips_w": 5,
+            "lambda_gan": 0.5,
+            "lcondition_w": 0
+        },
+
+    "path": { //set the path
+        "log": "logs",
+        
+        "tb_logger": "tb_logger",
+        "results": "results",
+        "checkpoint": "checkpoint",
+        // "resume_state": null
+        "resume_state": "experiments/s2_weight/I700000_E719" //pretrain model or training state
+    },
+    "datasets": {
+        "train": {
+            "name": "SEN12",
+            "mode": "translate", // whether need LR img
+            "dataroot": "../dataset/SEN12/train",
+            "datatype": "img", //lmdb or img, path of img files
+            "l_resolution": 256, // low resolution need to super_resolution
+            "r_resolution": 256, // high resolution
+            "batch_size": 16,  //16
+            "num_workers": 4,
+            "use_shuffle": true,
+            "data_len": -1 // -1 represents all data used in train
+        },
+        "val": {
+            "name": "SEN12",
+            "mode": "translate",
+            "dataroot": "../dataset/SEN12/val",
+            "datatype": "img", //lmdb or img, path of img files
+            "l_resolution": 256,
+            "r_resolution": 256,
+            "data_len": 400
+        }
+    },
+    "model": {
+        "which_model_G": "sr3", // use the ddpm or sr3 network structure
+        "finetune_norm": false,
+        "unet": {
+            "in_channel": 3,   
+            "condition_channel": 2,
+            "out_channel": 3,
+            "condition_ch": 3,
+            "inner_channel": 64,
+            "norm_groups": 16,   //GroupNorm参数
+            "channel_multiplier": [
+                1,
+                2,
+                4,
+                8,
+                // 8,
+                // 16,
+                16
+            ],
+            "attn_res": [
+                // 16
+            ],
+            "res_blocks": 1,
+            "dropout": 0
+        },
+        "beta_schedule": { // use munual beta_schedule for acceleration
+            "train": {
+                "schedule": "linear",   //linear
+                "n_timestep": 1000,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2,
+                "ddim": 0,  //1表示启动ddim
+                "lq_noiselevel": 0   //采样时时默认为200或者300
+
+            },
+            "val": {
+                "schedule": "linear",  //linear
+                "n_timestep": 1,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2,
+                "ddim": 1,  //1表示启动ddim,
+                "lq_noiselevel": 0   //采样时默认为200或者300
+            }
+        },
+        "diffusion": {
+            "image_size": 256,
+            "channels": 3, //sample channel
+            "conditional": true // unconditional generation or unconditional generation(super_resolution)
+        }
+    },
+    "train": {
+        "n_iter": 800000,
+        "val_freq": 5000,   //20000
+        "save_checkpoint_freq": 10000,
+        "print_freq": 50,
+        "optimizer": {
+            "type": "adam",
+            "lr": 5e-5    
+        },
+        "ema_scheduler": { // not used now
+            "step_start_ema": 5000,
+            "update_ema_every": 1,
+            "ema_decay": 0.9999
+        },
+
+        "scheduler": {
+            "type": "MultiStepLR",
+            "milestones": [700000],   // 540000
+            "gamma": 0.5
+        }
+            
+    },
+    "wandb": {
+        "project": "SEN12_S2"
+    }
+}
