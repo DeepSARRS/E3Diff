@@ -1,7 +1,7 @@
 <!--
  * @Description: 
  * @Date: 2024-11-23 12:26:20
- * @LastEditTime: 2024-11-23 16:09:35
+ * @LastEditTime: 2024-11-23 16:41:34
  * @FilePath: /QJ/E3Diff/README.md
 -->
 # Efficient End-to-end Diffusion Model for Onestep SAR-to-Optical Translation
@@ -46,7 +46,7 @@ $ make test
 
 
 ### Training:
-Download the dataset from [here](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing), and train your model using the following commands:
+Download the dataset from [here](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing), and train your model using the following commands (about 1 weeks using 2 A6000 48GB GPU):
 
 
 ```bash
