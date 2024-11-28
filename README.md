@@ -7,7 +7,7 @@
 # Efficient End-to-end Diffusion Model for Onestep SAR-to-Optical Translation
 
 ## Brief
-This is an official implementation of **Efficient End-to-end Diffusion Model for Onestep SAR-to-Optical Translation (E3Diff)** by **PyTorch**.
+This is an official implementation of **Efficient End-to-end Diffusion Model for Onestep SAR-to-Optical Translation [(E3Diff)](https://ieeexplore.ieee.org/document/10767752)** by **PyTorch**.
 - [√] released dataset and weights
 - [√] log / logger
 - [√] metrics evaluation
@@ -92,11 +92,21 @@ Our work is mainly based on the following projects:
 
 
 ## Citation
-If you find the project useful, please cite the paper:
+If you find the project useful, please cite the papers:
 
 
 
 ```
+@ARTICLE{10767752,
+  author={Qin, Jiang and Zou, Bin and Li, Haolin and Zhang, Lamei},
+  journal={IEEE Geoscience and Remote Sensing Letters}, 
+  title={Efficient End-to-End Diffusion Model for One-step SAR-to-Optical Translation}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-1},
+  doi={10.1109/LGRS.2024.3506566}}
+
 @article{qin2024conditional,
   title={Conditional Diffusion Model with Spatial-Frequency Refinement for SAR-to-Optical Image Translation},
   author={Qin, Jiang and Wang, Kai and Zou, Bin and Zhang, Lamei and van de Weijer, Joost},
