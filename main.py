@@ -4,7 +4,6 @@ Date: 2023-12-24 12:34:50
 LastEditors: Please set LastEditors
 LastEditTime: 2024-11-23 14:19:08
 FilePath: /QJ/E3Diff/train_call.py
-Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
 import time
 import torch
@@ -23,7 +22,7 @@ import random
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', type=str, default='config/SAR2EO_256_s1.json',   # 训练为config/SAR2EO_256.json
+    parser.add_argument('-c', '--config', type=str, default='config/SAR2EO_256_s1.json',   
                         help='JSON file for configuration')
     parser.add_argument('-p', '--phase', type=str, choices=['train', 'val'],
                         help='Run either train(training) or val(generation)', default='train')
@@ -260,7 +259,7 @@ if __name__ == "__main__":
             
             ttt0 = time.time()
             diffusion.feed_data(val_data)
-            diffusion.test(continous=True)    # continous=True 输出采样的中间过程
+            diffusion.test(continous=True)    # continous=True 
             ttt+=(time.time()-ttt0)
             ttti +=1
 
@@ -269,16 +268,16 @@ if __name__ == "__main__":
             inter_samples = visuals['SR'][:-1]
             if len(visuals['SR_onestep']):
                 sam_onesteps = visuals['SR_onestep']#[:-1]
-                sam_onestep = Metrics.tensor2img(sam_onesteps)  # uint8  输入的参考图片
+                sam_onestep = Metrics.tensor2img(sam_onesteps)  # uint8  
                 onestep_dir = os.path.join(result_path, 'sam_onstep')
 
-            os.makedirs(os.path.join(result_path, 'sar'), exist_ok=True)
-            os.makedirs(os.path.join(result_path, 'eo'), exist_ok=True)
+            os.makedirs(os.path.join(result_path, 'src'), exist_ok=True)
+            os.makedirs(os.path.join(result_path, 'tgt'), exist_ok=True)
             os.makedirs(os.path.join(result_path, 'sample'), exist_ok=True)
             
-            tgt_img = Metrics.tensor2img(visuals['HR'])  # uint8     高分辨率图像
+            tgt_img = Metrics.tensor2img(visuals['HR'])  # uint8     
             src_img = Metrics.tensor2img(visuals['LR'])  # uint8 
-            sample_img = Metrics.tensor2img(sample_img)  # uint8  输入的参考图片
+            sample_img = Metrics.tensor2img(sample_img)  # uint8  
 
             Metrics.save_img(
                 sample_img, os.path.join(result_path, 'sample', img_name))
@@ -288,10 +287,10 @@ if __name__ == "__main__":
                 Metrics.save_img(
                             sam_onestep, '{}/{}_{}.png'.format(onestep_dir, current_step, idx))
                 Metrics.save_img(
-                                src_img, os.path.join(result_path, 'sar', img_name))
+                                src_img, os.path.join(result_path, 'src', img_name))
             
             Metrics.save_img(
-                            tgt_img, os.path.join(result_path, 'eo', img_name))
+                            tgt_img, os.path.join(result_path, 'tgt', img_name))
 
             inter_samples = torch.cat((inter_samples, visuals['HR']), dim=0)
             inter_samples = Metrics.tensor2img(inter_samples)  # uint8
