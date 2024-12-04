@@ -83,7 +83,7 @@
             },
             "val": {
                 "schedule": "linear",  //linear
-                "n_timestep": 1,
+                "n_timestep": 50,
                 "linear_start": 1e-6,
                 "linear_end": 1e-2,
                 "ddim": 1,  //set 1 for ddim, 0 for ddpm
