@@ -399,42 +399,13 @@ class CPEN(nn.Module):
         x5 = self.E5(x5)
 
         # x5 = self.pool(x5)
-        if torch.isnan(x1).any():
-            print('x1 nan:\n')
+        if torch.isnan(x1).any() or torch.isnan(x2).any() or torch.isnan(x3).any() or torch.isnan(x4).any() or torch.isnan(x5).any():
+            print('nan :\n')
             print(x1)
             print(x2)
             print(x3)
             print(x4)
             print(x5)
-        if torch.isnan(x2).any():
-            print('x2 nan:\n')
-            print(x1)
-            print(x2)
-            print(x3)
-            print(x4)
-            print(x5)
-        if torch.isnan(x3).any():
-            print('x3 nan:\n')
-            print(x1)
-            print(x2)
-            print(x3)
-            print(x4)
-            print(x5)
-        if torch.isnan(x4).any():
-            print('x4 nan:\n')
-            print(x1)
-            print(x2)
-            print(x3)
-            print(x4)
-            print(x5)
-        if torch.isnan(x5).any():
-            print('x5 nan:\n')
-            print(x.mean(),x.min(),x.max())
-            print(x1.mean(),x1.min(),x1.max())
-            print(x2.mean(),x2.min(),x2.max())
-            print(x3.mean(),x3.min(),x3.max())
-            print(x4.mean(),x4.min(),x4.max())
-            print(x5.mean(),x5.min(),x5.max())
             for k, v  in self.E1.named_parameters():
                 print(k, ':\n', v.mean(),v.min(),v.max())
             for k, v  in self.E2.named_parameters():
