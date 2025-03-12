@@ -1,9 +1,4 @@
-'''
-Description: 
-Date: 2024-02-13 14:53:36
-LastEditTime: 2024-02-13 18:01:05
-FilePath: /jqin/SAR2EO_PPBlatent_localpreserv/model/base_model.py
-'''
+
 import os
 import torch
 import torch.nn as nn
