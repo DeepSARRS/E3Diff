@@ -214,7 +214,7 @@ class GaussianDiffusion(nn.Module):
         posterior_log_variance_clipped = self.posterior_log_variance_clipped[t]
         return posterior_mean, posterior_log_variance_clipped
 
-    def p_mean_variance(self, x, t, clip_denoised: bool, condition_x=None):  # ddpm 采样
+    def p_mean_variance(self, x, t, clip_denoised: bool, condition_x=None):  # ddpm sample
         batch_size = x.shape[0]
         noise_level = torch.FloatTensor(
             [self.sqrt_alphas_cumprod_prev[t+1]]).repeat(batch_size, 1).to(x.device)
@@ -353,9 +353,9 @@ class GaussianDiffusion(nn.Module):
 
 
             if simple_var:
-                third_term = (1 - alpha_prod_t / alpha_prod_t_prev)**0.5 * noise  # ddpm使用的方差 
+                third_term = (1 - alpha_prod_t / alpha_prod_t_prev)**0.5 * noise  # var of ddpm 
             else:
-                third_term = sigma_2**0.5 * noise   # 变成了马尔科夫ddpm
+                third_term = sigma_2**0.5 * noise   #ddpm
             # x = first_term + second_term + third_term
             x = alpha_prod_t_prev ** (0.5) * pred_original_sample + pred_sample_direction + third_term
             imgs.append(x)
@@ -369,7 +369,7 @@ class GaussianDiffusion(nn.Module):
     
 
     @torch.no_grad()
-    def p_sample(self, x, t, clip_denoised=True, condition_x=None):  # sr3采样
+    def p_sample(self, x, t, clip_denoised=True, condition_x=None):  # sr3 sample
         model_mean, model_log_variance, x_recon = self.p_mean_variance(
             x=x, t=t, clip_denoised=clip_denoised, condition_x=condition_x)
         noise = torch.randn_like(x) if t > 0 else torch.zeros_like(x)
@@ -478,7 +478,7 @@ class GaussianDiffusion(nn.Module):
 
 
     @torch.no_grad()
-    def super_resolution(self, x_in, continous=False, seed=1, img_s1=None):   # 测试
+    def super_resolution(self, x_in, continous=False, seed=1, img_s1=None):   # test
 
         return self.p_sample_loop(x_in, continous, seed=seed, img_s1=img_s1)
 
