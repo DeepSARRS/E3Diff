@@ -46,7 +46,7 @@ $ make test
 
 
 ### Training:
-Download the dataset from [here](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing), and train your model using the following commands (about 1 weeks using 2 A6000 48GB GPU):
+Download the dataset from [here](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing), and train your model using the following commands (about 1 week using 2 A6000 48GB GPU):
 
 
 ```bash
