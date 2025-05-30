@@ -50,10 +50,10 @@ Download the dataset from [here](https://drive.google.com/drive/folders/1KZMXgHs
 
 
 ```bash
-# stage 1 training for sen12 dataset
+# stage 1 training for sen12 dataset (PPB filtering is not used for SEN12)
 python main.py --config 'config/SEN12_256_s1.json'
 
-# stage 2 training for sen12 dataset
+# stage 2 training for sen12 dataset (PPB filtering is not used for SEN12)
 python main.py --config 'config/SEN12_256_s2_1step.json'
 
 ```
@@ -65,8 +65,9 @@ Also, you might be willing to download the well-trained model of SEN12 from [her
 python main.py --config 'config/SEN12_256_s2_test.json' --phase 'val'  --seed 1
 ```
 
-
-
+```bash
+If you want to reproduce results of SAR2EO, please use the matlab code 'SAR2EO_filter.m' to filter speckles of SAR images before feeding into E3Diff.
+```
 ## 🚀 Weights and Biases 🎉
 
 The library now supports experiment tracking, model checkpointing and model prediction visualization with [Weights and Biases](https://wandb.ai/site). You will need to [install W&B](https://pypi.org/project/wandb/) and login by using your [access token](https://wandb.ai/authorize). 
