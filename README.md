@@ -6,6 +6,8 @@
 -->
 # Efficient End-to-end Diffusion Model for Onestep SAR-to-Optical Translation
 
+### 🚀 E3Diff won the 1st in CVPR PBVS2025 Multi-modal Aerial View Image Challenge - T (Translation) 🎉
+
 ## Brief
 This is an official implementation of **[Efficient End-to-end Diffusion Model for Onestep SAR-to-Optical Translation (E3Diff)](https://ieeexplore.ieee.org/document/10767752)** by **PyTorch**.
 - [√] released dataset and weights
