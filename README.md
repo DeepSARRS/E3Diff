@@ -17,7 +17,8 @@ This is an official implementation of **[Efficient End-to-end Diffusion Model fo
 - [√] resume training / pretrained model
 - [√] [Weights and Biases Logging]
 - [√] 1/multi steps training and sampling
-
+- [√] SEN12 results of baseline methods are released
+  
 ## Pipeline
 ![vis](/doc/pipeline.png)
 
@@ -61,6 +62,8 @@ python main.py --config 'config/SEN12_256_s2_1step.json'
 ```
 
 Also, you might be willing to download the well-trained model of SEN12 from [here](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing), and test the model:
+If needed, results of some baseline methods can also be downloaded [here](https://pan.baidu.com/s/19OgulOKHcbVujgoBVIx6vw?pwd=tf95)(code is tf95).
+
 
 ```bash
 # stage 2 validation for sen12 dataset
