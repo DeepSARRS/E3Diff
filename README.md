@@ -48,8 +48,12 @@ $ make test
 ```
 
 
+### Dataset
+SAR-EO dataset: [baiduyun code 0615](https://pan.baidu.com/s/19aPkwppi5WeBy8j18aJ4-w?pwd=0615)
+SEN12 dataset: [google drive](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing)
+
 ### Training:
-Download the dataset from [here](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing), and train your model using the following commands (about 1 week using 2 A6000 48GB GPU):
+Download the dataset, and train your model using the following commands (about 1 week using 2 A6000 48GB GPU):
 
 
 ```bash
