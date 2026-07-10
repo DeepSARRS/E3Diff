@@ -10,7 +10,7 @@
 
 ## Brief
 This is an official implementation of **[Efficient End-to-end Diffusion Model for Onestep SAR-to-Optical Translation (E3Diff)](https://ieeexplore.ieee.org/document/10767752)** by **PyTorch**.
-- [√] released dataset and weights
+- [√] released dataset
 - [√] log / logger
 - [√] metrics evaluation
 - [√] multi-gpu support
@@ -18,6 +18,8 @@ This is an official implementation of **[Efficient End-to-end Diffusion Model fo
 - [√] [Weights and Biases Logging]
 - [√] 1/multi steps training and sampling
 - [√] SEN12 results of baseline methods are released
+- [√] Pretrained weights of both SAR2EO and SEN12 are released
+
   
 ## Pipeline
 ![vis](/doc/pipeline.png)
@@ -56,7 +58,21 @@ SEN12 dataset: [google drive](https://drive.google.com/drive/folders/1KZMXgHsXUu
 ### Training:
 Download the dataset, and train your model using the following commands (about 1 week using 2 A6000 48GB GPU):
 
+#### SAR2EO DATA
+Filtered SAR data and canny maps are use in SAR2EO task.
+```bash
+# 1. Prepare filtered SAR data using SAR2EO_filter.m
+# 2. Prepare canny map data using canny_dataset.py
+# 3. stage 1 training for SAR2EO dataset
+python main.py --config 'config/SAR2EO_256_s1.json'
 
+# 4. stage 2 training for SAR2EO dataset
+python main.py --config 'config/SAR2EO_256_s2_1step.json'
+
+```
+You might be willing to download the well-trained model of SAR2EO from [here](https://pan.baidu.com/s/1I3aPqYiqEdqoU1N_pYE6-A?pwd=0615)(code is 0615), and test the model.
+
+#### SEN12 DATA
 ```bash
 # stage 1 training for sen12 dataset (PPB filtering is not used for SEN12)
 python main.py --config 'config/SEN12_256_s1.json'
@@ -66,18 +82,20 @@ python main.py --config 'config/SEN12_256_s2_1step.json'
 
 ```
 
-Also, you might be willing to download the well-trained model of SEN12 from [here](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing), and test the model:
+Also, you might be willing to download the well-trained model of SEN12 from [here](https://drive.google.com/drive/folders/1KZMXgHsXUuztxPI44jKeFj29KYHLbopP?usp=sharing), and test the model.
 If needed, results of some baseline methods can also be downloaded [here](https://pan.baidu.com/s/19OgulOKHcbVujgoBVIx6vw?pwd=tf95)(code is tf95).
 
 
 ```bash
+# stage 2 validation for SAR2EO dataset
+# If you want to reproduce results of SAR2EO, please use the matlab code 'SAR2EO_filter.m' to filter speckles and use canny_dataset.py to extract canny maps of SAR images before feeding into E3Diff.
+python main.py --config 'config/SAR2EO_256_s2_test.json' --phase 'val'  --seed 1
+
 # stage 2 validation for sen12 dataset
 python main.py --config 'config/SEN12_256_s2_test.json' --phase 'val'  --seed 1
 ```
 
-```bash
-If you want to reproduce results of SAR2EO, please use the matlab code 'SAR2EO_filter.m' to filter speckles of SAR images before feeding into E3Diff.
-```
+
 ## 🚀 Weights and Biases 🎉
 
 The library now supports experiment tracking, model checkpointing and model prediction visualization with [Weights and Biases](https://wandb.ai/site). You will need to [install W&B](https://pypi.org/project/wandb/) and login by using your [access token](https://wandb.ai/authorize). 

@@ -25,15 +25,6 @@ class DDPM(BaseModel):
         # set loss and load resume state
         self.set_loss()
 
-        # 将freq初始化为0
-        # for k, v in self.netG.named_parameters():
-        #     # print(k)
-        #     if 'freq' in k:
-        #         v.data.zero_()
-        #         # print(v)
-        #         print(f'setting {k} to zeros')
-
-
 
         print('--------------------setting Perceptual loss-------------------------')
 
@@ -42,7 +33,8 @@ class DDPM(BaseModel):
             v.requires_grad = False
         
 
-        
+        self.begin_step=0
+        self.begin_epoch=0
         self.net_disc = vision_aided_loss.Discriminator(cv_type='clip', loss_type='multilevel_sigmoid_s', device="cuda")
         self.net_disc = self.net_disc.cuda()
         self.net_disc.requires_grad_(True)
@@ -325,9 +317,17 @@ class DDPM(BaseModel):
             network.load_state_dict(net_params, strict=False)
             # network.load_state_dict(torch.load(
             #     gen_path), strict=False)
+
             if self.opt['phase'] == 'train':
-                # optimizer
-                opt = torch.load(opt_path)
-                # self.optG.load_state_dict(opt['optimizer'])
-                self.begin_step = opt['iter']
-                self.begin_epoch = opt['epoch']
+                if os.path.isfile(opt_path):
+                    # optimizer
+                    opt = torch.load(opt_path)
+                    # self.optG.load_state_dict(opt['optimizer'])
+                    self.begin_step = opt['iter']
+                    self.begin_epoch = opt['epoch']
+                else:
+                    try:
+                        self.begin_step = net_params['iter']
+                        self.begin_epoch = net_params['epoch']
+                    except:
+                        print(f"Failed load iter and epoch information, because {opt_path} is not existed")
